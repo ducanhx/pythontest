@@ -1,0 +1,40 @@
+while (1==1):
+    seat = input('Taxi 4-seat or 7-seat: ' )
+    if (seat == '4'):
+        KM11 = 11000
+        KM12  = 15300
+        KM13 = 12100
+        km1 = float(input('Input your distance (km):'))
+        waiting_time = float(input('Input waiting time:'))
+
+        if float(km1) <= 0.8:
+            cost = float(km1) * KM11
+        elif float(km1) > 0.8 and float(km1) <= 30:
+            cost = 0.8*KM11 + (float(km1) - 0.8)*KM12
+        elif float(km1) > 30:
+            cost = 0.8*KM11 * 29.2*KM12 + (float(km1) - 30)*KM13
+        else:
+            print("Invalid input")
+        waiting_tax = (waiting_time - 5)*750 
+        print("Your taxi payment: ", cost + waiting_tax, "VND")
+        break
+    elif (seat == '7'):
+        KM21 = 12000
+        KM22 = 16100
+        KM23 = 13800
+        km2 = float(input('Input your distance (km):'))
+        waiting_time = float(input('Input waiting time:'))
+
+
+        if float(km2) <= 0.8:
+            cost = float(km2) * KM21
+        elif float(km2) > 0.8 and float(km2) <= 30:
+            cost = 0.8*KM21 + (float(km2) - 0.8)*KM22
+        elif float(km2) > 30:
+            cost = 0.8*KM21 * 29.2*KM22 + (float(km2) - 30)*KM23
+        else:
+            print("Invalid input")
+        waiting_tax = (waiting_time - 5)*750 
+        print("Your taxi payment: ", cost + waiting_tax, "VND")
+        break
+    else: print('Hay chon dung loai xe.')
