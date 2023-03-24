@@ -1,0 +1,16 @@
+def count_system():
+    str_input = input('Please fill the string: ')
+
+    upper_count = 0
+    lower_count = 0
+    symbol_count = 0
+    for char in str_input:
+        if char.isupper():
+            upper_count += 1
+        elif char.islower():
+            lower_count += 1
+        else:   
+            symbol_count += 1
+    print('Total counts of chars, digits, and symbols')        
+    print('Upper = ' , upper_count ,'Lower = ', lower_count,'Symbol = ', symbol_count)
+count_system()
