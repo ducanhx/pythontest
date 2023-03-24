@@ -1,0 +1,192 @@
+class book:
+    def __init__(self, id, name, author):
+        self.id = id
+        self.name = name
+        self.author = author
+        
+class book_management:
+    list_book = []
+    def fill_book(self):
+        # Create book's information
+        id = input("Nhap ma sach: ")
+        while True:
+            bookk = self.findByID(id)
+            if bookk is not None:
+                print("ID này đã tồn tại, vui lòng nhập lại:")
+                id = input()
+            else:
+                break
+        name = input("Nhap ten sach: ")
+        author = input("Nhap ten tac gia: ")
+        ss = book(id, name, author)
+        self.list_book.append(ss)
+
+    def update_id_book(self, ID):
+        # Find book in list_book
+        ss = self.findByID(ID)
+        # If exist then update
+        if ss != None:
+            id = input("Nhap ma sach moi: ")
+            ss.id = id
+        else:
+            print("Book with ID {} does not exist.".format(ID))
+    def update_name(self, ID):
+        ss = self.findByID(ID)
+        if ss != None:
+            name = input("Nhap ten sach: ")
+            ss.name = name
+        else:
+            print("Book with ID {} does not exist.".format(ID))
+        
+    def update_author(self, ID):
+        ss = self.findByID(ID)
+        if ss != None:
+            author = input("Nhap ngay sinh moi: ")
+            ss.author = author
+        else:
+            print("Book with ID {} does not exist.".format(ID))
+        
+    
+        
+
+    # find book by ID
+    def findByID(self, ID):
+        searchResult = None
+        for ss in self.list_book:
+            if  ss.id == ID:
+                searchResult = ss
+                break
+        
+        return searchResult
+    
+    def findByID2(self, ID):
+        listSS = []
+        for ss in self.list_book:
+                if ss.id == ID:
+                    listSS.append(ss)
+                else:
+                    print("Book does not exist.")
+        return listSS
+ 
+    # find book by name
+    def findByName(self, keyword):
+        listSS = []
+        for ss in self.list_book:
+                if (keyword.upper() in ss.name.upper()):
+                    listSS.append(ss)
+                else:
+                    print("Book does not exist.")
+        return listSS
+ 
+    # Delete book
+    def deleteById(self, ID):
+        isDeleted = False
+        # find book by id
+        ss = self.findByID(ID)
+        if (ss != None):
+            self.list_book.remove(ss)
+            isDeleted = True
+        return isDeleted
+    def show_book(self, listSS):
+        print("{:<8} {:<18} {:<8} ".format("ID", "Name", "Author"))
+        for ss in listSS:
+            print("{:<8} {:<18} {:<8}".format(ss.id , ss.name, ss.author))
+            print("\n")
+    def getListBook(self):
+        return self.list_book
+    def bookamount(self):
+        return self.list_book.__len__()
+    
+
+qls = book_management()
+while (1==1):
+    print("\nSystem")
+    print("*************************MENU**************************")
+    print("**  1. List.                                         **")
+    print("**  2. Add book.                                     **")
+    print("**  3. Update book information.                      **")    
+    print("**  4. Delete book.                                  **")               
+    print("**  5. Find book.                                    **")    
+    print("**  0. Exit....                                      **")
+    print("*******************************************************")
+    key = (input("Nhap tuy chon: "))
+    if (key == '1'):
+        if (qls.bookamount() > 0):
+            print("\n1. Hien thi danh sach.")
+            qls.show_book(qls.getListBook())
+        else:
+            print("\nDanh sach trong!")
+    elif (key == '2'):
+        print("\n2. Them sach.")
+        qls.fill_book()
+        print("\nThem sach thanh cong!")
+    elif (key == '3'):
+        print("\n3. Cap nhat thong tin sach ")
+        print("\nNhap ID: ")
+        ID = (input())
+        if qls.findByID(ID) == None: 
+            print("Student does not exist.")
+        else:
+            searchResult = qls.findByID2(ID)
+            qls.show_book(searchResult)
+            print("*****************Update Information********************")
+            print("**  1. Update ID.                                    **")
+            print("**  2. Update Name.                                  **")
+            print("**  3. Update Author.                                **")
+            print("**  0. Exit.                                         **")
+            print("*******************************************************")
+            update_key = (input("Nhap tuy chon: "))
+            if (update_key == '1'): 
+                qls.update_id_book(ID)
+                print("Success.")
+            elif (update_key == '2'):
+                qls.update_name(ID)
+                print("Success.")
+            elif (update_key == '3'):
+                qls.update_author(ID)
+                print("Success.")
+            elif (update_key == '0'):
+                break
+            else:
+                print("\nKhong co chuc nang nay!")
+                print("\nHay chon chuc nang trong hop.")
+    elif (key == '4'):
+        print("\n4.Xoa sach boi ID.")
+        print("\nNhap ID: ")
+        ID = (input())
+        qls.deleteById(ID)
+        print("Ban da xoa thanh cong.") 
+    elif (key == '5'):
+        print("\n5. Tim kiem sach.")
+        print("*****************Search option********************")
+        print("**  1. Search by name.                          **")
+        print("**  2. Search by id.                            **")
+        print("**  0. Back to menu.                            **")
+        search_key = (input("Nhap tuy chon: "))
+        if (search_key == '1'):
+            print("\nNhap ten de tim kiem: ")
+            name = input()
+            searchResult = qls.findByName(name)
+            qls.show_book(searchResult)
+        elif (search_key == '2'):
+            print("\nNhap ID: ")
+            ID = (input())
+            if qls.findByID(ID) == None: 
+                print("Book does not exist.")
+            else:
+                searchResult = qls.findByID2(ID)
+                qls.show_book(searchResult)
+        elif (update_key == '0'):
+            break
+        else:
+            print("\nKhong co chuc nang nay!")
+            print("\nHay chon chuc nang trong hop.")
+
+    elif (key == '0'):
+        print("\nBan da chon thoat chuong trinh!")
+        break
+    else:
+        print("\nKhong co chuc nang nay!")
+        print("\nHay chon chuc nang trong hop menu.")
+
+
